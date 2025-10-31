@@ -1,6 +1,3 @@
-MAVEN.md
-README.md
-NOTES.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -36,3 +33,9 @@ build/
 
 ### Environment file ###
 .env
+
+### Until project finished ###
+MAVEN.md
+README.md
+NOTES.md
+endpoints.json
