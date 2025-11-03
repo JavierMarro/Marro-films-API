@@ -13,10 +13,13 @@ import java.util.List;
 @RequestMapping("/api/v1/films") //any request made to the specified endpoint in brackets will be handled by this controller
 public class FilmController {
 
+    @Autowired // needed to instantiate the service class
+    private FilmService filmService;
+
     @GetMapping
-    public ResponseEntity<String> getAllFilms(){
+    public ResponseEntity<List<Film>> getAllFilms(){
         // ResponseEntity<> helps return whichever data along with a full HTTP response (more in NOTES)
-        return new ResponseEntity<String>("All films!", HttpStatus.OK);
+        return new ResponseEntity<List<Film>>(filmService.allFilms(), HttpStatus.OK);
     }
 }
 
