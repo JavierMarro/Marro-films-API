@@ -23,7 +23,7 @@ public class ReviewService {
         // 3rd apply the update creating a new update definition that does (or push) the value (which is the review with its body) in the DB
         mongoTemplate.update(Film.class)
                 .matching(Criteria.where("imdbId").is(imdbId))
-                .apply(new Update().push("reviewIds").value(review))
+                .apply(new Update().push("reviewList").value(review))
                 .first();
 
         return review;
