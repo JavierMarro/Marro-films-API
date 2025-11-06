@@ -1,7 +1,7 @@
 package dev.javiermarro.films.services;
 
-import dev.javiermarro.films.Film;
-import dev.javiermarro.films.repo.FilmRepository;
+import dev.javiermarro.films.models.Film;
+import dev.javiermarro.films.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package dev.javiermarro.films.controllers;
 
-import dev.javiermarro.films.Film;
+import dev.javiermarro.films.models.Film;
 import dev.javiermarro.films.services.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
