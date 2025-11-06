@@ -1,5 +1,5 @@
 # JUnit & Mockito
-https://spring.io/guides/gs/testing-web?utm_source=chatgpt.com
+https://spring.io/guides/gs/testing-web
 
 
 https://www.geeksforgeeks.org/advance-java/unit-testing-in-spring-boot-project-using-mockito-and-junit/

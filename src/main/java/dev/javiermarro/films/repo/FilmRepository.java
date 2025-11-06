@@ -1,5 +1,6 @@
-package dev.javiermarro.films;
+package dev.javiermarro.films.repo;
 
+import dev.javiermarro.films.Film;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

@@ -1,5 +1,8 @@
-package dev.javiermarro.films;
+package dev.javiermarro.films.services;
 
+import dev.javiermarro.films.Film;
+import dev.javiermarro.films.Review;
+import dev.javiermarro.films.repo.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
