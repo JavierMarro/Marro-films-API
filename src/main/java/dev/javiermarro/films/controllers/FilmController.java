@@ -1,6 +1,7 @@
-package dev.javiermarro.films;
+package dev.javiermarro.films.controllers;
 
-import org.bson.types.ObjectId;
+import dev.javiermarro.films.models.Film;
+import dev.javiermarro.films.services.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

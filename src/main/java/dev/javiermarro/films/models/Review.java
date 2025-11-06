@@ -1,4 +1,4 @@
-package dev.javiermarro.films;
+package dev.javiermarro.films.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

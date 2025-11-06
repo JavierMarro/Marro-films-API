@@ -35,7 +35,5 @@ build/
 .env
 
 ### Until project finished ###
-MAVEN.md
-README.md
-NOTES.md
+*.md
 endpoints.json

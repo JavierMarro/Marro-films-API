@@ -1,5 +1,7 @@
-package dev.javiermarro.films;
+package dev.javiermarro.films.controllers;
 
+import dev.javiermarro.films.models.Review;
+import dev.javiermarro.films.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
