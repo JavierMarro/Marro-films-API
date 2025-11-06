@@ -14,15 +14,3 @@ class FilmsApplicationTests {
 	}
 
 }
-
-//class HttpRequestTest{
-//
-//    @LocalServerPort
-//    private int port;
-//
-//    @Autowired
-//    private TestRestTemplate restTemplate;
-//
-//    @Test
-//    void fil
-//}
