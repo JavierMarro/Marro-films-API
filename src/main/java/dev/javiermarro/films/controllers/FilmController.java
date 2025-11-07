@@ -27,8 +27,18 @@ public class FilmController {
     }
 
     @GetMapping("/{imdbId}")
-    public ResponseEntity<Optional<Film>> getFilmById(@PathVariable String imdbId){
-        return new ResponseEntity<Optional<Film>>(filmService.filmById(imdbId), HttpStatus.OK);
+    public ResponseEntity<Film> getFilmById(@PathVariable String imdbId){
+        Optional<Film> film = filmService.filmById(imdbId);
+
+        // according to IntelliJ suggestions the below can be refactored with a lambda expression
+        // return film.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        if(film.isPresent()){
+            return ResponseEntity.ok(film.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        // the one below was the initial return statement, refactored to the above for better industry standards
+        // return new ResponseEntity<Optional<Film>>(filmService.filmById(imdbId), HttpStatus.OK);
     }
 }
 

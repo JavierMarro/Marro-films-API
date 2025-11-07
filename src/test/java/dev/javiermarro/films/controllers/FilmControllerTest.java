@@ -70,4 +70,13 @@ class FilmControllerTest {
                     .andExpect(jsonPath("$[0].poster").value("somePosterUrl"));
         }
     }
+
+    @Nested
+    class GetFilmByIdTests {
+
+        @Test
+        void testGetSingleFilm() throws Exception {
+
+        }
+    }
 }
