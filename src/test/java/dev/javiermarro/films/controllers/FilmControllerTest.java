@@ -11,8 +11,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -27,10 +28,10 @@ class FilmControllerTest {
     private FilmService filmService;
 
     @Nested
-    class GetAllFilmsTests {
+    class GetAllFilmsEndpointTests {
 
         @Test
-        void testGetAllFilms() throws Exception {
+        void testReturnAllFilms() throws Exception {
             Film film = new Film();
             film.setTitle("Avatar: The Way of Water");
             film.setImdbId("tt1630029");
@@ -45,7 +46,7 @@ class FilmControllerTest {
         }
 
         @Test
-        void testEmptyArrayWhenNoFilms() throws Exception {
+        void testReturnEmptyArrayWhenNoFilms() throws Exception {
             when(filmService.allFilms()).thenReturn(List.of());
 
             mockMvc.perform(get("/api/v1/films").contentType(MediaType.APPLICATION_JSON))
@@ -72,11 +73,33 @@ class FilmControllerTest {
     }
 
     @Nested
-    class GetFilmByIdTests {
+    class GetFilmByIdEndpointTests {
 
         @Test
-        void testGetSingleFilm() throws Exception {
+        void testReturnSingleFilmById() throws Exception {
+            Film film = new Film();
+            film.setTitle("Avatar: The Way of Water");
+            film.setImdbId("tt1630029");
 
+            when(filmService.filmById("tt1630029")).thenReturn(Optional.of(film));
+
+            mockMvc.perform(get("/api/v1/films/tt1630029"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.title").value("Avatar: The Way of Water"))
+                    .andExpect(jsonPath("$.imdbId").value("tt1630029"));
+
+            verify(filmService, times(1)).filmById("tt1630029");
+        }
+
+        @Test
+        void testReturnNotFoundWhenFilmIdDoesNotExist() throws  Exception {
+            when(filmService.filmById("nonexistent")).thenReturn(Optional.empty());
+
+            mockMvc.perform(get("/api/v1/films/nonexistent"))
+                    .andExpect(status().isNotFound());
+
+            verify(filmService, times(1)).filmById("nonexistent");
         }
     }
 }
