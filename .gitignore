@@ -33,7 +33,3 @@ build/
 
 ### Environment file ###
 .env
-
-### Until project finished ###
-*.md
-endpoints.json
