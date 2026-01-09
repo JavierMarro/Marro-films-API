@@ -1,0 +1,58 @@
+{
+  "endpoints": {
+    "GET /api/v1": {
+      "description": "Serves a JSON representation of all available endpoints of the API"
+    },
+
+    "GET /api/v1/films": {
+      "description": "Returns an array of all films",
+      "queries": [],
+      "exampleResponse": {
+        "films": [
+          {
+            "imdbId": "tt3915174",
+            "title": "Puss in Boots: The Last Wish",
+            "releaseDate": "2022-12-21",
+            "poster": "https://image.tmdb.org/t/p/w500/1NqwE6LP9IEdOZ57NCT51ftHtWT.jpg",
+            "genres": ["Animation", "Action", "Adventure"],
+            "reviewList": []
+          }
+        ]
+      }
+    },
+
+    "GET /api/v1/films/{imdbId}": {
+      "description": "Returns a single film by its IMDb ID",
+      "queries": [],
+      "exampleResponse": {
+        "film": {
+          "imdbId": "tt3915174",
+          "title": "Puss in Boots: The Last Wish",
+          "releaseDate": "2022-12-21",
+          "poster": "https://image.tmdb.org/t/p/w500/1NqwE6LP9IEdOZ57NCT51ftHtWT.jpg",
+          "genres": ["Animation", "Action", "Adventure"],
+          "reviewList": []
+        }
+      }
+    },
+
+    "POST /api/v1/reviews": {
+      "description": "Creates a new review for a film",
+      "queries": [],
+      "requestBody": [
+        {
+          "reviewBody": "This film was amazing!",
+          "imdbId": "tt3915174"
+        }
+      ],
+      "exampleResponse": {
+        "review": {
+          "id": "generated-review-id",
+          "reviewBody": "This film was amazing!",
+          "imdbId": "tt3915174",
+          "createdAt": "2026-01-09T12:00:00.000Z"
+        }
+      }
+    }
+  }
+}
