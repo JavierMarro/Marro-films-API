@@ -24,21 +24,37 @@ This service provides a RESTful API for managing movies and user reviews, using 
 - Layered architecture
 - CORS-enabled endpoints for frontend communication (React app)
 
+## Live Demo
+
+- **Backend (Render):** https://marro-films-api.onrender.com
+- **API Index:** https://marro-films-api.onrender.com/api/v1
+
+## Available Endpoints (Summary)
+
+| Method | Endpoint               | Description                     |
+|--------|-------------------------|---------------------------------|
+| GET    | /api/v1/films          | Get all films                   |
+| GET    | /api/v1/films/{imdbId} | Get a film by IMDb ID           |
+| POST   | /api/v1/reviews        | Create a new review             |
+
+Full details available in `endpoints.json`.
+
 ---
-asdfasf
+
 ## Project Structure
 The backend follows a layered architecture with controllers, services, and repositories.
 ```plaintext
 
 ├── main/
 │   ├── java/dev.javiermarro.films/
-│   │   ├── controller/     # REST controllers (Movies, Reviews)
-│   │   ├── model/          # Data models (Movie, Review)
-│   │   ├── repository/     # MongoDB repositories
-│   │   ├── service/        # Business logic
+│   │   ├── controllers/     # REST controllers (Movies, Reviews)
+│   │   ├── models/          # Data models (Movie, Review)
+│   │   ├── repositories/     # MongoDB repositories
+│   │   ├── services/        # Business logic
 │   │   └── FilmsApplication.java
 │   └── resources/
 │       ├── application.properties  # Configurations
+│       ├── endpoints.json  # API documentation
 └── test/                           # Unit tests
 
 ```
@@ -103,4 +119,20 @@ Once the server is running, open your browser or use Postman or curl to test API
 **Check the endpoints.json file out to see what endpoints are available and the expected results format.**
 
 Alternatively, you can set these in your system environment variables.
+
+## Future Improvements
+
+- Add authentication (JWT)
+- Add pagination for film lists
+- Improve error handling and validation
+- Expand test coverage
+
+
+## Documentation gathered throughout the development of the API
+
+- [Spring Boot](docs/spring-boot-mongodb.md)
+- [Testing](docs/testing.md)
+- [Docker](docs/docker-and-cors.md)
+- [Bugs & Fixes](docs/bugs-and-fixes.md)
+
 
