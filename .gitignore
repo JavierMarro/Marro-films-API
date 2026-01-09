@@ -35,5 +35,4 @@ build/
 .env
 
 ### Until project finished ###
-*.md
-endpoints.json
+src/main/resources/endpoints.json
