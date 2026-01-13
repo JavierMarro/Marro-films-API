@@ -80,8 +80,9 @@ I set up GitHub Actions CI that runs the full Maven verify lifecycle with JDK 21
 - [Spring Boot](docs/spring-boot-mongodb.md)
 - [Testing](docs/testing.md)
 - [Docker](docs/docker-and-cors.md)
+- [CI pipeline](docs/ci-github-actions.md)
 - [Bugs & Fixes](docs/bugs-and-fixes.md)
-- 
+
 ##  Setup Instructions
 
 ### Prerequisites
