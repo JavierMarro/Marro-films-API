@@ -1,19 +1,18 @@
 package dev.javiermarro.films;
 
+import dev.javiermarro.films.repositories.FilmRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 
 @SpringBootTest
-@ActiveProfiles("test")
-@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*repository.*"))
 class FilmsApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+	@MockitoBean
+	private FilmRepository filmRepository;  // this mocks out the DB
 
+	@Test
+	void contextLoads() {}
 }
+
