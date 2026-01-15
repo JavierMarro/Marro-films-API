@@ -1,4 +1,4 @@
-name: Maven Build on Push
+name: Maven Build & Docker CI
 
 on:
   push:
@@ -62,8 +62,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: set lower case owner name # From: https://github.com/orgs/community/discussions/27086
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+
       - name: Push Docker Image
         run: |
-          IMAGE=ghcr.io/javiermarro/marro-films-api:${{ github.sha }}
+          IMAGE=ghcr.io/$OWNER_LC/marro-films-api:${{ github.sha }}
           docker tag marro-films-api:${{ github.sha }} $IMAGE
           docker push $IMAGE
