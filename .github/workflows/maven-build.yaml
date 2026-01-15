@@ -64,6 +64,6 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          IMAGE=ghcr.io/${{ github.repository_owner }}/marro-films-api:${{ github.sha }}
+          IMAGE=ghcr.io/${{ github.repository_owner | lower }}/marro-films-api:${{ github.sha }}
           docker tag marro-films-api:${{ github.sha }} $IMAGE
           docker push $IMAGE
