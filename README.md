@@ -3,6 +3,10 @@
 A **Spring Boot** backend for the **Marro's films** backend film review application.  
 This service provides a RESTful API for managing movies and user reviews, using **MongoDB** as the database.
 
+[![CI](https://github.com/JavierMarro/Marro-films-API/actions/workflows/maven-build.yaml/badge.svg)]
+(https://github.com/JavierMarro/Marro-films-API/actions/workflows/maven-build.yaml)
+
+
 ---
 
 ## Tech Stack
