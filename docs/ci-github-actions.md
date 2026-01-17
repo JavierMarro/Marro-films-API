@@ -16,3 +16,8 @@ https://github.com/actions/setup-java
 https://github.com/docker/build-push-action
 https://docs.docker.com/build/ci/github-actions/
 https://www.youtube.com/watch?v=eHZf-gaqAJQ
+
+Adding Docker images to GHCR
+https://github.com/orgs/community/discussions/27086
+https://github.com/orgs/community/discussions/27086#discussioncomment-3254552
+https://github.com/actions/starter-workflows/blob/82c43562976aef3d8f02643e00e979d65993244c/ci/docker-publish.yml
