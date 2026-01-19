@@ -1,4 +1,4 @@
-name: Maven Build & Docker CI
+name: Maven Build & Docker CI # from https://www.youtube.com/watch?v=eHZf-gaqAJQ
 
 on:
   push:

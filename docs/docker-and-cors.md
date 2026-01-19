@@ -1,6 +1,7 @@
 # Deploying on Render
 
-Spring Boot isn't a native way to deploy the API to production and needs the use of Docker for build and deployment:
+Spring Boot isn't a native way to deploy the API to production and needs the use of Docker for build and deployment.
+Creating a Dockerfile:
 https://medium.com/@pmanaktala/deploying-a-spring-boot-application-on-render-4e757dfe92ed
 
 # Setting up CORS
