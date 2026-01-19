@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.*;
 
 @WebMvcTest(FilmController.class)
-class FilmControllerTest {
+class FilmsControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
