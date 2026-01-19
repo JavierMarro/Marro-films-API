@@ -11,14 +11,14 @@ The outcome of the CI implemented covers:
 
 ## Documentation used:
 
-### Github Actions for CI Builds with Maven
+### GitHub Actions for CI Builds with Maven
 https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven
 https://github.com/actions/setup-java
 https://github.com/docker/build-push-action
 https://docs.docker.com/build/ci/github-actions/
 https://www.youtube.com/watch?v=eHZf-gaqAJQ
 
-### Solving @SpringBootTests throwing an error at contextLoads() (due to no access to MongoDB to load the app)
+### WIP - Solving @SpringBootTests throwing an error at contextLoads() (due to no access to MongoDB to load the app)
 https://java.testcontainers.org/modules/databases/mongodb/
 https://docs.spring.io/spring-boot/reference/testing/testcontainers.html
 https://github.com/testcontainers/testcontainers-java/tree/main/examples
