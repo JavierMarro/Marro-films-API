@@ -2,14 +2,13 @@ package dev.javiermarro.films.controllers;
 
 import dev.javiermarro.films.models.Review;
 import dev.javiermarro.films.services.ReviewService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,4 +24,14 @@ public class ReviewController {
     public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload){
         return new ResponseEntity<Review>(reviewService.createReview(payload.get("reviewBody"), payload.get("imdbId")), HttpStatus.CREATED);
     }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Review> getReviewById(@PathVariable ObjectId id) {
+//        // TODO : implement endpoint
+//    };
+//
+//    @GetMapping("/film/{imdbId}")
+//    public ResponseEntity<List<Review>> getReviewsByFilm(@PathVariable String imdbId) {
+//        // TODO implement endpoint
+//    };
 }

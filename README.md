@@ -1,4 +1,4 @@
-[![CI](https://github.com/JavierMarro/Marro-films-API/actions/workflows/maven-build.yaml/badge.svg)]
+![CI](https://github.com/JavierMarro/Marro-films-API/actions/workflows/maven-build.yaml/badge.svg)
 
 # Marro's films API
 
