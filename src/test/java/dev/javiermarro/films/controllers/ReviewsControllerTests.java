@@ -40,23 +40,23 @@ public class ReviewsControllerTests {
     class CreateReviewTests {
 
         @Test
-        @DisplayName("should create review and return 201 when valid payload is provided")
+        @DisplayName("should create review and return 201 when valid data is provided")
         void shouldCreateReviewSuccessfully() throws Exception {
             // Arrange
             String reviewBody = "This is my favourite film!";
             String imdbId = "tt1630029";
             Review newReview = createReview(reviewBody);
 
-            Map<String, String> payload = new HashMap<>();
-            payload.put("reviewBody", reviewBody);
-            payload.put("imdbId", imdbId);
+            Map<String, String> review = new HashMap<>();
+            review.put("reviewBody", reviewBody);
+            review.put("imdbId", imdbId);
 
             when(reviewService.createReview(reviewBody, imdbId)).thenReturn(newReview);
 
             // Act & Assert
             mockMvc.perform(post("/api/v1/reviews")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(payload)))
+                            .content(objectMapper.writeValueAsString(review)))
                     .andExpect(status().isCreated())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.body").value(reviewBody));

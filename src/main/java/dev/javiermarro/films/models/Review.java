@@ -1,5 +1,6 @@
 package dev.javiermarro.films.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class Review {
 
     @Id
     private ObjectId id;
+    @NotBlank(message = "The body of a review cannot be empty") // from https://www.baeldung.com/java-bean-validation-not-null-empty-blank
     private String body;
 
     // ids are auto generated so we wouldn't be able to pass it to the class
