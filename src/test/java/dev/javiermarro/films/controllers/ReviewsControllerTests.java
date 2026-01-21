@@ -16,10 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ReviewController.class)
@@ -62,6 +61,115 @@ public class ReviewsControllerTests {
                     .andExpect(jsonPath("$.body").value(reviewBody));
 
             verify(reviewService).createReview(reviewBody, imdbId);
+        }
+
+        @Test
+        @DisplayName("should return 400 when a review is submitted empty")
+        void shouldRejectEmptyReviewBody() throws Exception {
+            // Arrange
+            Map<String, String> payload = new HashMap<>();
+            payload.put("reviewBody", "");
+            payload.put("imdbId", "tt1630029");
+
+            // Act & Assert
+            mockMvc.perform(post("/api/v1/reviews")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isBadRequest());
+
+            verify(reviewService, never()).createReview(anyString(), anyString());
+        }
+
+        @Test
+        @DisplayName("should return 400 when review body is null")
+        void shouldRejectNullReviewBody() throws Exception {
+            // Arrange
+            Map<String, String> payload = new HashMap<>();
+            payload.put("reviewBody", null);
+            payload.put("imdbId", "tt1630029");
+
+            // Act & Assert
+            mockMvc.perform(post("/api/v1/reviews")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isBadRequest());
+
+            verify(reviewService, never()).createReview(anyString(), anyString());
+        }
+
+        @Test
+        @DisplayName("should return 400 when review body is only whitespace")
+        void shouldRejectWhitespaceOnlyReview() throws Exception {
+            // Arrange
+            Map<String, String> payload = new HashMap<>();
+            payload.put("reviewBody", "   ");
+            payload.put("imdbId", "tt1630029");
+
+            // Act & Assert
+            mockMvc.perform(post("/api/v1/reviews")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isBadRequest());
+
+            verify(reviewService, never()).createReview(anyString(), anyString());
+        }
+
+        @Test
+        @DisplayName("should return 400 when imdbId is empty")
+        void shouldRejectEmptyImdbId() throws Exception {
+            // Arrange
+            Map<String, String> payload = new HashMap<>();
+            payload.put("reviewBody", "What a banger!");
+            payload.put("imdbId", "");
+
+            // Act & Assert
+            mockMvc.perform(post("/api/v1/reviews")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isBadRequest());
+
+            verify(reviewService, never()).createReview(anyString(), anyString());
+        }
+
+        @Test
+        @DisplayName("should return 400 when imdbId is null")
+        void shouldRejectNullImdbId() throws Exception {
+            // Arrange
+            Map<String, String> payload = new HashMap<>();
+            payload.put("reviewBody", "Outstanding film!");
+            payload.put("imdbId", null);
+
+            // Act & Assert
+            mockMvc.perform(post("/api/v1/reviews")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isBadRequest());
+
+            verify(reviewService, never()).createReview(anyString(), anyString());
+        }
+
+        @Test
+        @DisplayName("should call service with valid parameters")
+        void shouldCallServiceWithValidParameters() throws Exception {
+            // Arrange
+            String reviewBody = "This film is the GOAT!";
+            String imdbId = "tt0111161";
+            Review createdReview = createReview(reviewBody);
+
+            Map<String, String> payload = new HashMap<>();
+            payload.put("reviewBody", reviewBody);
+            payload.put("imdbId", imdbId);
+
+            when(reviewService.createReview(reviewBody, imdbId)).thenReturn(createdReview);
+
+            // Act
+            mockMvc.perform(post("/api/v1/reviews")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isCreated());
+
+            // Assert
+            verify(reviewService, times(1)).createReview(reviewBody, imdbId);
         }
 
         // Helper method
