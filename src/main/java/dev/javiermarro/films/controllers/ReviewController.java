@@ -21,8 +21,22 @@ public class ReviewController {
     // annotation @RequestBody: whatever we get as the request body we want to convert it into a Map which takes String as a key value pair
     // HttpStatus.Created for 201 http results
     @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload){
-        return new ResponseEntity<Review>(reviewService.createReview(payload.get("reviewBody"), payload.get("imdbId")), HttpStatus.CREATED);
+    public ResponseEntity<?> createReview(@RequestBody Map<String, String> payload){
+        String reviewBody = payload.get("reviewBody");
+        String imdbId = payload.get("imdbId");
+
+        // Performing manual validation for now
+        // TODO: Look into DTO https://www.baeldung.com/java-dto-pattern https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
+        if (reviewBody == null || reviewBody.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("A review cannot be blank");
+        }
+
+        if (imdbId == null || imdbId.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Film IMDB ID is required");
+        }
+
+        Review review = reviewService.createReview(reviewBody, imdbId);
+        return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 
 //    @GetMapping("/{id}")
