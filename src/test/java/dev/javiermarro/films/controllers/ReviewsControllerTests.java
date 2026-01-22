@@ -3,7 +3,6 @@ package dev.javiermarro.films.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.javiermarro.films.models.Review;
 import dev.javiermarro.films.services.ReviewService;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.HashMap;
 import java.util.Map;
 
-import static dev.javiermarro.films.utils.ReviewsTestFactory.createReview;
+import static dev.javiermarro.films.fixtures.ReviewsTestFixture.createReview;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

@@ -1,9 +1,9 @@
-package dev.javiermarro.films.utils;
+package dev.javiermarro.films.fixtures;
 
 import dev.javiermarro.films.models.Review;
 import org.bson.types.ObjectId;
 
-public class ReviewsTestFactory {
+public class ReviewsTestFixture {
 
     // Helper method to be reused in ReviewTests files
     public static Review createReview(String body) {
