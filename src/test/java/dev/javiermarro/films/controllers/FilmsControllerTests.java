@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Optional;
 
+import static dev.javiermarro.films.utils.FilmsTestFactory.createFilm;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -104,12 +105,4 @@ class FilmControllerTests {
         }
     }
 
-    // Helper method
-    private Film createFilm(String title, String imdbId, String releaseDate) {
-        Film film = new Film();
-        film.setTitle(title);
-        film.setImdbId(imdbId);
-        film.setReleaseDate(releaseDate);
-        return film;
-    }
 }
