@@ -55,7 +55,7 @@ class FilmControllerTests {
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$", hasSize(1)))
-                    .andExpect(jsonPath("$[0].title", is("Avatar: The Way of Water")));
+                    .andExpect(jsonPath("$[0].title", is("Inception")));
         }
 
         @Test
