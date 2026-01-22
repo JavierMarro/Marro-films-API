@@ -1,7 +1,9 @@
 package dev.javiermarro.films.controllers;
 
+import dev.javiermarro.films.fixtures.FilmsTestFixture;
 import dev.javiermarro.films.models.Film;
 import dev.javiermarro.films.services.FilmService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,17 @@ class FilmControllerTests {
     @MockitoBean
     private FilmService filmService;
 
+    private Film avatarFilm;
+    private Film interstellarFilm;
+    private Film inceptionFilm;
+
+    @BeforeEach
+    void setUp() {
+        avatarFilm = FilmsTestFixture.avatar();
+        interstellarFilm = FilmsTestFixture.interstellar();
+        inceptionFilm = FilmsTestFixture.inception();
+    }
+
     @Nested
     @DisplayName("GET /api/v1/films")
     class GetAllFilmsTests {
@@ -36,14 +49,13 @@ class FilmControllerTests {
         @Test
         @DisplayName("should return all films when films exist")
         void shouldReturnAllFilms() throws Exception {
-            Film film = createFilm("Avatar: The Way of Water", "tt1630029", "2022-12-16");
-            when(filmService.allFilms()).thenReturn(List.of(film));
+            when(filmService.allFilms()).thenReturn(List.of(inceptionFilm));
 
             mockMvc.perform(get("/api/v1/films")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$", hasSize(1)))
-                    .andExpect(jsonPath("$[0].title", is("Avatar: The Way of Water")));
+                    .andExpect(jsonPath("$[0].title", is("Inception")));
         }
 
         @Test
@@ -60,9 +72,8 @@ class FilmControllerTests {
         @Test
         @DisplayName("should return valid JSON structure with all fields")
         void shouldReturnValidJsonStructure() throws Exception {
-            Film film = createFilm("Interstellar", "tt0816692", "2014-11-07");
-            film.setPoster("somePosterUrl");
-            when(filmService.allFilms()).thenReturn(List.of(film));
+            interstellarFilm.setPoster("somePosterUrl");
+            when(filmService.allFilms()).thenReturn(List.of(interstellarFilm));
 
             mockMvc.perform(get("/api/v1/films")
                             .contentType(MediaType.APPLICATION_JSON))
@@ -80,8 +91,7 @@ class FilmControllerTests {
         @Test
         @DisplayName("should return film when ID exists")
         void shouldReturnFilmWhenIdExists() throws Exception {
-            Film film = createFilm("Avatar: The Way of Water", "tt1630029", "2022-12-16");
-            when(filmService.filmById("tt1630029")).thenReturn(Optional.of(film));
+            when(filmService.filmById("tt1630029")).thenReturn(Optional.of(avatarFilm));
 
             mockMvc.perform(get("/api/v1/films/tt1630029"))
                     .andExpect(status().isOk())
@@ -102,14 +112,5 @@ class FilmControllerTests {
 
             verify(filmService).filmById("nonexistent");
         }
-    }
-
-    // Helper method
-    private Film createFilm(String title, String imdbId, String releaseDate) {
-        Film film = new Film();
-        film.setTitle(title);
-        film.setImdbId(imdbId);
-        film.setReleaseDate(releaseDate);
-        return film;
     }
 }
