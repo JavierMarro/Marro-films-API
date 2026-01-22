@@ -104,5 +104,4 @@ class FilmControllerTests {
             verify(filmService).filmById("nonexistent");
         }
     }
-
 }

@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.HashMap;
 import java.util.Map;
 
+import static dev.javiermarro.films.utils.ReviewsTestFactory.createReview;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -170,14 +171,6 @@ public class ReviewsControllerTests {
 
             // Assert
             verify(reviewService, times(1)).createReview(reviewBody, imdbId);
-        }
-
-        // Helper method
-        private Review createReview(String body) {
-            Review review = new Review();
-            review.setId(new ObjectId());
-            review.setBody(body);
-            return review;
         }
     }
 }
