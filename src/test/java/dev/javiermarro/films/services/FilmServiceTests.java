@@ -3,7 +3,6 @@ package dev.javiermarro.films.services;
 import dev.javiermarro.films.fixtures.FilmsTestFixture;
 import dev.javiermarro.films.models.Film;
 import dev.javiermarro.films.repositories.FilmRepository;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

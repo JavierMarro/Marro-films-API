@@ -1,8 +1,10 @@
 package dev.javiermarro.films.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.javiermarro.films.fixtures.ReviewsTestFixture;
 import dev.javiermarro.films.models.Review;
 import dev.javiermarro.films.services.ReviewService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,6 +36,15 @@ public class ReviewsControllerTests {
     @MockitoBean
     private ReviewService reviewService;
 
+    private Review positiveReview;
+    private Review neutralReview;
+
+    @BeforeEach
+    void setUp() {
+        positiveReview = ReviewsTestFixture.positive();
+        neutralReview = ReviewsTestFixture.neutral();
+    }
+
     @Nested
     @DisplayName("POST /api/v1/reviews")
     class CreateReviewTests {
@@ -42,15 +53,14 @@ public class ReviewsControllerTests {
         @DisplayName("should create review and return 201 when valid data is provided")
         void shouldCreateReviewSuccessfully() throws Exception {
             // Arrange
-            String reviewBody = "This is my favourite film!";
             String imdbId = "tt1630029";
-            Review newReview = createReview(reviewBody);
+            Review newReview = createReview(String.valueOf(positiveReview));
 
             Map<String, String> payload = new HashMap<>();
-            payload.put("reviewBody", reviewBody);
+            payload.put("reviewBody", positiveReview.getBody());
             payload.put("imdbId", imdbId);
 
-            when(reviewService.createReview(reviewBody, imdbId)).thenReturn(newReview);
+            when(reviewService.createReview(String.valueOf(positiveReview), imdbId)).thenReturn(newReview);
 
             // Act & Assert
             mockMvc.perform(post("/api/v1/reviews")
@@ -58,9 +68,9 @@ public class ReviewsControllerTests {
                             .content(objectMapper.writeValueAsString(payload)))
                     .andExpect(status().isCreated())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(jsonPath("$.body").value(reviewBody));
+                    .andExpect(jsonPath("$.body").value(positiveReview.getBody()));
 
-            verify(reviewService).createReview(reviewBody, imdbId);
+            verify(reviewService).createReview(String.valueOf(positiveReview), imdbId);
         }
 
         @Test
@@ -152,15 +162,14 @@ public class ReviewsControllerTests {
         @DisplayName("should call service with valid parameters")
         void shouldCallServiceWithValidParameters() throws Exception {
             // Arrange
-            String reviewBody = "This film is the GOAT!";
             String imdbId = "tt0111161";
-            Review createdReview = createReview(reviewBody);
+            Review createdReview = createReview(String.valueOf(neutralReview));
 
             Map<String, String> payload = new HashMap<>();
-            payload.put("reviewBody", reviewBody);
+            payload.put("reviewBody", neutralReview.getBody());
             payload.put("imdbId", imdbId);
 
-            when(reviewService.createReview(reviewBody, imdbId)).thenReturn(createdReview);
+            when(reviewService.createReview(String.valueOf(neutralReview), imdbId)).thenReturn(createdReview);
 
             // Act
             mockMvc.perform(post("/api/v1/reviews")
@@ -169,7 +178,7 @@ public class ReviewsControllerTests {
                     .andExpect(status().isCreated());
 
             // Assert
-            verify(reviewService, times(1)).createReview(reviewBody, imdbId);
+            verify(reviewService, times(1)).createReview(String.valueOf(neutralReview), imdbId);
         }
     }
 }
