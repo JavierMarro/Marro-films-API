@@ -1,21 +1,18 @@
-package dev.javiermarro.films;
+//package dev.javiermarro.films;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//
+//@SpringBootTest
+//class FilmsApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-
-
-@SpringBootTest
-@EnableAutoConfiguration(exclude = {
-        MongoAutoConfiguration.class,
-        MongoDataAutoConfiguration.class
-})
-class FilmsApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+// controller tests only load the web layer
+// the annotation @SpringBootTest tries to load the full application context including the MongoDB connection, which fails
+// TODO: look into TestContainers for this and ReviewServiceTests
