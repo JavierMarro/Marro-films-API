@@ -16,3 +16,9 @@ Solution: https://render.com/docs/connect-to-mongodb-atlas
 javax.net.ssl.SSLException: (internal_error) Received fatal alert: internal_error
 ```
 Solution: https://www.mongodb.com/community/forums/t/cant-connect-to-mongodb-atlas-from-render-web-hosted-app/192110/5
+
+```text
+could not find a valid docker environment. please see logs and check configuration
+```
+Partly solution: https://stackoverflow.com/questions/61108655/test-container-test-cases-are-failing-due-to-could-not-find-a-valid-docker-envi
+https://github.com/testcontainers/testcontainers-java/issues/2431
