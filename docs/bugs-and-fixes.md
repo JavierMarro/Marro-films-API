@@ -20,5 +20,8 @@ Solution: https://www.mongodb.com/community/forums/t/cant-connect-to-mongodb-atl
 ```text
 could not find a valid docker environment. please see logs and check configuration
 ```
-Partly solution: https://stackoverflow.com/questions/61108655/test-container-test-cases-are-failing-due-to-could-not-find-a-valid-docker-envi
+First attempt: https://www.baeldung.com/java-mongodb-testcontainers 
+https://stackoverflow.com/questions/61108655/test-container-test-cases-are-failing-due-to-could-not-find-a-valid-docker-envi
 https://github.com/testcontainers/testcontainers-java/issues/2431
+
+Final solution: https://www.baeldung.com/spring-boot-embedded-mongodb
