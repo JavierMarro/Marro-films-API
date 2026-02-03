@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@Disabled("Trying to find a solution setting up either testcontainers or using embedded MongoDB")
+//@Disabled("Trying to find a solution setting up either testcontainers or using embedded MongoDB")
+@SpringBootTest
 class FilmsApplicationTests {
 
 	@Test
