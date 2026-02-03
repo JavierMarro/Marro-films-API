@@ -3,9 +3,11 @@ package dev.javiermarro.films;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 //@Disabled("Trying to find a solution setting up either testcontainers or using embedded MongoDB")
 @SpringBootTest
+@ActiveProfiles("test")
 class FilmsApplicationTests {
 
 	@Test
