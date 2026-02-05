@@ -39,13 +39,40 @@ public class ReviewController {
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Review> getReviewById(@PathVariable ObjectId id) {
-//        // TODO : implement endpoint
-//    };
-//
-//    @GetMapping("/film/{imdbId}")
-//    public ResponseEntity<List<Review>> getReviewsByFilm(@PathVariable String imdbId) {
-//        // TODO implement endpoint
-//    };
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReview(@PathVariable String id, @RequestBody Map<String, String> payload) {
+        String imdbId = payload.get("imdbId");
+
+        // Validate that imdbId is provided
+        if (imdbId == null || imdbId.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Film IMDB ID is required");
+        }
+
+        // Validate that the id is a valid ObjectId format
+        ObjectId reviewId;
+        try {
+            reviewId = new ObjectId(id);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid review ID format");
+        }
+
+        // Attempt to delete the review
+        boolean deletedReview = reviewService.deleteReview(reviewId, imdbId);
+
+        if (deletedReview) {
+            // 204 No Content is the standard response for successful DELETE
+            return ResponseEntity.noContent().build();
+        } else {
+            // 404 Not Found if the review doesn't exist
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Review not found");
+        }
+    }
+
+    //Retrieves all reviews associated with a specific film
+    @GetMapping("/film/{imdbId}")
+    public ResponseEntity<List<Review>> getReviewsByFilm(@PathVariable String imdbId) {
+        List<Review> reviews = reviewService.getReviewsByFilm(imdbId);
+        return ResponseEntity.ok(reviews);
+    }
+
 }
