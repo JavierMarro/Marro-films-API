@@ -68,4 +68,11 @@ public class ReviewController {
         }
     }
 
+    //Retrieves all reviews associated with a specific film
+    @GetMapping("/film/{imdbId}")
+    public ResponseEntity<List<Review>> getReviewsByFilm(@PathVariable String imdbId) {
+        List<Review> reviews = reviewService.getReviewsByFilm(imdbId);
+        return ResponseEntity.ok(reviews);
+    }
+
 }

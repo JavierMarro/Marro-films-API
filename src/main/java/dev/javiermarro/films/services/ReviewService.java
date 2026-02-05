@@ -62,4 +62,13 @@ public class ReviewService {
         return true;
     }
 
+    //Retrieves all reviews for a specific film by querying the film's reviewList
+    public List<Review> getReviewsByFilm(String imdbId) {
+        // Fetch the film using the filmService
+        Optional<Film> filmOptional = filmService.filmById(imdbId);
+
+        // If film exists, return its reviewList; otherwise return an empty list
+        return filmOptional.map(Film::getReviewList).orElse(List.of());
+    }
+
 }
