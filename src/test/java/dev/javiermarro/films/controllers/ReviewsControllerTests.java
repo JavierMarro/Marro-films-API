@@ -225,5 +225,49 @@ public class ReviewsControllerTests {
         }
     }
 
+    @Nested
+    @DisplayName("GET /api/v1/reviews/film/{imdbId}")
+    class GetReviewsByFilmTests {
+
+        @Test
+        @DisplayName("should return list of reviews when film exists and has reviews")
+        void shouldReturnReviewsForExistingFilm() throws Exception {
+            // Arrange
+            String imdbId = "tt1630029";
+            Review review1 = createReview("Amazing film!");
+            Review review2 = createReview("Loved it!");
+            List<Review> reviews = List.of(review1, review2);
+
+            when(reviewService.getReviewsByFilm(imdbId)).thenReturn(reviews);
+
+            // Act & Assert
+            mockMvc.perform(get("/api/v1/reviews/film/" + imdbId)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$", hasSize(2)))
+                    .andExpect(jsonPath("$[0].body", is("Amazing film!")))
+                    .andExpect(jsonPath("$[1].body", is("Loved it!")));
+
+            verify(reviewService).getReviewsByFilm(imdbId);
+        }
+
+        @Test
+        @DisplayName("should return empty list if film has no reviews or does not exist")
+        void shouldReturnEmptyListIfNoReviews() throws Exception {
+            // Arrange
+            String imdbId = "tt9999999";
+            when(reviewService.getReviewsByFilm(imdbId)).thenReturn(List.of());
+
+            // Act & Assert
+            mockMvc.perform(get("/api/v1/reviews/film/" + imdbId)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$", hasSize(0)));
+
+            verify(reviewService).getReviewsByFilm(imdbId);
+        }
+    }
 
 }
