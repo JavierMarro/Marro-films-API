@@ -3,6 +3,7 @@ package dev.javiermarro.films.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.javiermarro.films.models.Review;
 import dev.javiermarro.films.services.ReviewService;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,16 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static dev.javiermarro.films.fixtures.ReviewsTestFixture.createReview;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ReviewController.class)
@@ -172,4 +177,53 @@ public class ReviewsControllerTests {
             verify(reviewService, times(1)).createReview(reviewBody, imdbId);
         }
     }
+
+    @Nested
+    @DisplayName("DELETE /api/v1/reviews/{id}")
+    class DeleteReviewTests {
+
+        @Test
+        @DisplayName("should delete review and return 204 if valid data is provided")
+        void shouldDeleteReview() throws Exception {
+            // Arrange
+            ObjectId reviewId = new ObjectId();
+            String imdbId = "tt1630029";
+
+            Map<String, String> payload = new HashMap<>();
+            payload.put("imdbId", imdbId);
+
+            when(reviewService.deleteReview(any(ObjectId.class), eq(imdbId))).thenReturn(true);
+
+            // Act & Assert
+            mockMvc.perform(delete("/api/v1/reviews/" + reviewId.toHexString())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isNoContent());
+
+            verify(reviewService).deleteReview(any(ObjectId.class), eq(imdbId));
+        }
+
+        @Test
+        @DisplayName("should return 404 if review does not exist")
+        void shouldReturn404WhenNoReviewFound() throws Exception {
+            // Arrange
+            ObjectId reviewId = new ObjectId();
+            String imdbId = "tt1630029";
+
+            Map<String, String> payload = new HashMap<>();
+            payload.put("imdbId", imdbId);
+
+            when(reviewService.deleteReview(any(ObjectId.class), eq(imdbId))).thenReturn(false);
+
+            // Act & Assert
+            mockMvc.perform(delete("/api/v1/reviews/" + reviewId.toHexString())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(payload)))
+                    .andExpect(status().isNotFound());
+
+            verify(reviewService).deleteReview(any(ObjectId.class), eq(imdbId));
+        }
+    }
+
+
 }
